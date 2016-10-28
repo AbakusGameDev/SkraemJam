@@ -30,6 +30,26 @@
 window_set_fullscreen(true);
 
 player_0 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
+with (player_0) {
+    key_up = vk_up;
+    key_down = vk_down;
+    key_right = vk_right;
+    key_left = vk_left;
+    key_rotate_CW = 190;
+    key_rotate_CCW = 188;
+    key_attack = vk_control;
+}
+
+player_1 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
+with (player_1) {
+    key_up = ord('W');
+    key_down = ord('S');
+    key_right = ord('D');
+    key_left = ord('A');
+    key_rotate_CW = ord('V');
+    key_rotate_CCW = ord('C');
+    key_attack = vk_space;
+}
 
 view_wview = display_get_width();
 view_hview = display_get_height();
@@ -59,8 +79,23 @@ random_set_seed(1000);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_xview = player_0.x - view_wview * 0.5;
-view_yview = player_0.y - view_hview * 0.5;
+            <string>var aspect_ratio = display_get_width() / display_get_height()
+
+view_wview = abs(player_0.x - player_1.x) + 100.0
+view_hview = abs(player_0.y - player_1.y) + 100.0
+
+view_wview = max(view_wview, display_get_width())
+view_hview = max(view_hview, display_get_height())
+
+if(view_wview / view_hview &lt; aspect_ratio) {
+    view_wview = view_hview * aspect_ratio
+}
+else {
+    view_hview = view_wview / aspect_ratio
+}
+
+view_xview = (player_0.x + player_1.x) * 0.5 - view_wview * 0.5;
+view_yview = (player_0.y + player_1.y) * 0.5 - view_hview * 0.5;
 
 if (keyboard_check(vk_escape)) game_end();
 </string>

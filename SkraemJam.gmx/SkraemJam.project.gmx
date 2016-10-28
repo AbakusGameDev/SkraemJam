@@ -21,6 +21,7 @@
     <object>objects\obj_main</object>
     <object>objects\obj_player</object>
     <object>objects\obj_spotlight</object>
+    <object>objects\obj_projectile</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>
