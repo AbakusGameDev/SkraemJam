@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>1000000</depth>
+  <depth>-1000000</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -94,11 +94,14 @@ surface_set_target(sf_light);
             event_perform(ev_draw, 0);
         }
     draw_set_blend_mode(bm_normal);
+    draw_clear(c_white); // TODO: Remove.
 surface_reset_target();
 
 draw_set_blend_mode_ext(bm_dest_color, bm_zero);
     draw_surface(sf_light, 0, 0);
 draw_set_blend_mode(bm_normal);
+
+draw_sprite_ext(spr_collision_static, 0, 0, 0, 1, 1, 0, c_white, 0.5);
 </string>
           </argument>
         </arguments>

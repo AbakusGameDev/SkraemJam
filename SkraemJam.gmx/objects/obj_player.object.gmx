@@ -76,7 +76,7 @@ y += (keyboard_check(key_down) - keyboard_check(key_up)) * 5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_player, 0, x, y);
+            <string>draw_sprite_ext(spr_player, 0, x, y, 1, 1, image_angle, c_white, 1);
 </string>
           </argument>
         </arguments>

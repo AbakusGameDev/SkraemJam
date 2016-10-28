@@ -7,8 +7,11 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_player</sprite>
+    <sprite>sprites\spr_clown</sprite>
+    <sprite>sprites\spr_clown_mask</sprite>
     <sprite>sprites\spr_spotlight_light</sprite>
     <sprite>sprites\spr_spotlight_editor</sprite>
+    <sprite>sprites\spr_collision_static</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_0</background>
@@ -16,11 +19,16 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\spotlight_set_goal.gml</script>
+    <script>scripts\clown_set_goal.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_main</object>
     <object>objects\obj_player</object>
     <object>objects\obj_spotlight</object>
+    <object>objects\obj_clown</object>
+    <object>objects\obj_spawn</object>
+    <object>objects\obj_collision_parent</object>
+    <object>objects\obj_collision_static</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>
