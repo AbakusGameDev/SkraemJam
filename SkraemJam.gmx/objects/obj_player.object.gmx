@@ -37,7 +37,7 @@ dir = 0.0;
 color = c_red;
 
 max_hp = 100;
-hp = max_hp * 0.5;
+hp = max_hp;
 
 movement_speed = 5.0;
 rotation_speed = 0.1;
@@ -96,7 +96,7 @@ rotation_speed = 0.1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spr_player, 0, x, y, 1, 1, image_angle, c_white, 1);
+            <string>draw_sprite_ext(spr_player, 0, x, y, 1, 1, radtodeg(-dir), c_white, 1);
 draw_sprite_ext(spr_crosshair, 0, x + cos(dir) * 30, y + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1);
 
 var h = 8;
