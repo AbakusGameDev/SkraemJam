@@ -22,6 +22,9 @@
     <script>scripts\spotlight_set_goal.gml</script>
     <script>scripts\clown_set_goal.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\font0</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_main</object>
     <object>objects\obj_player</object>

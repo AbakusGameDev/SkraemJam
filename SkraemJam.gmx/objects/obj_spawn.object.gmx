@@ -48,13 +48,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_number(obj_clown) &lt; 10) {
-    if ((timer % room_speed * 10) == 0) {
-        instance_create(x, y, obj_clown);
+            <string>if(obj_main.state == 1) {
+    if (instance_number(obj_clown) &lt; 10) {
+        if ((timer % room_speed * 10) == 0) {
+            instance_create(x, y, obj_clown);
+        }
     }
+    
+    ++timer;
 }
-
-++timer;
 </string>
           </argument>
         </arguments>
