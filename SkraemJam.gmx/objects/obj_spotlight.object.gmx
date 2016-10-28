@@ -25,16 +25,21 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>timer = random(360);
-color = choose(
-            make_color_hsv(0, 100, 128),
-            make_color_hsv(60, 100, 128),
-            make_color_hsv(120, 100, 128),
-            make_color_hsv(180, 100, 128),
-            make_color_hsv(240, 100, 128)
+            <string>color = choose(
+            merge_color(make_color_hsv(0, 100, 128), c_white, 0.5),
+            merge_color(make_color_hsv(60, 100, 128), c_white, 0.5),
+            merge_color(make_color_hsv(120, 100, 128), c_white, 0.5),
+            merge_color(make_color_hsv(180, 100, 128), c_white, 0.5),
+            merge_color(make_color_hsv(240, 100, 128), c_white, 0.5)
         );
         
-angle = random(360);
+direction = random(360);
+
+speed = choose(0.2, 0.5, 1);
+
+spotlight_set_goal();
+
+merge_factor = 0.7;
 </string>
           </argument>
         </arguments>
@@ -57,10 +62,15 @@ angle = random(360);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>x = xstart + lengthdir_x(256, timer);
-y = ystart + lengthdir_y(256, timer);
+            <string>if (direction &lt; point_direction(x, y, goal_x, goal_y)) {
+    direction += 1;
+} else {
+    direction -= 1;
+}
 
-timer += 0.2;
+if (point_distance(x, y, goal_x, goal_y) &lt; 50) {
+    spotlight_set_goal();
+}
 </string>
           </argument>
         </arguments>

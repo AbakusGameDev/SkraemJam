@@ -14,6 +14,9 @@
     <background>background\bg_0</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\spotlight_set_goal.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_main</object>
     <object>objects\obj_player</object>
