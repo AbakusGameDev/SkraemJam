@@ -29,6 +29,7 @@
     <object>objects\obj_spawn</object>
     <object>objects\obj_collision_parent</object>
     <object>objects\obj_collision_static</object>
+    <object>objects\obj_projectile</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

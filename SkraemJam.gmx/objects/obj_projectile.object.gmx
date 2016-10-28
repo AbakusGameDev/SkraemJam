@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1000000</depth>
+  <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,44 +25,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>application_surface_enable(false);
+            <string>dir = 0
 
-window_set_fullscreen(true);
-
-player_0 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
-with (player_0) {
-    key_up = vk_up;
-    key_down = vk_down;
-    key_right = vk_right;
-    key_left = vk_left;
-    key_rotate_CW = 190;
-    key_rotate_CCW = 188;
-    key_attack = vk_control;
-}
-
-player_1 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
-with (player_1) {
-    key_up = ord('W');
-    key_down = ord('S');
-    key_right = ord('D');
-    key_left = ord('A');
-    key_rotate_CW = ord('V');
-    key_rotate_CCW = ord('C');
-    key_attack = vk_space;
-}
-
-view_wview = display_get_width();
-view_hview = display_get_height();
-
-sf_light = -1;
-
-random_set_seed(1000);
+movement_speed = 15.0
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -79,25 +50,8 @@ random_set_seed(1000);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var aspect_ratio = display_get_width() / display_get_height()
-
-view_wview = abs(player_0.x - player_1.x) + 100.0
-view_hview = abs(player_0.y - player_1.y) + 100.0
-
-view_wview = max(view_wview, display_get_width())
-view_hview = max(view_hview, display_get_height())
-
-if(view_wview / view_hview &lt; aspect_ratio) {
-    view_wview = view_hview * aspect_ratio
-}
-else {
-    view_hview = view_wview / aspect_ratio
-}
-
-view_xview = (player_0.x + player_1.x) * 0.5 - view_wview * 0.5;
-view_yview = (player_0.y + player_1.y) * 0.5 - view_hview * 0.5;
-
-if (keyboard_check(vk_escape)) game_end();
+            <string>x += cos(dir) * movement_speed
+y += sin(dir) * movement_speed
 </string>
           </argument>
         </arguments>
@@ -120,23 +74,7 @@ if (keyboard_check(vk_escape)) game_end();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!surface_exists(sf_light)) sf_light = surface_create(room_width, room_height);
-
-surface_set_target(sf_light);
-    draw_clear(c_black);
-    draw_set_blend_mode(bm_add);
-        with (obj_spotlight) {
-            event_perform(ev_draw, 0);
-        }
-    draw_set_blend_mode(bm_normal);
-    draw_clear(c_white); // TODO: Remove.
-surface_reset_target();
-
-draw_set_blend_mode_ext(bm_dest_color, bm_zero);
-    draw_surface(sf_light, 0, 0);
-draw_set_blend_mode(bm_normal);
-
-draw_sprite_ext(spr_collision_static, 0, 0, 0, 1, 1, 0, c_white, 0.5);
+            <string>draw_circle(x, y, 5, false)
 </string>
           </argument>
         </arguments>
