@@ -141,12 +141,8 @@ if(keyboard_check_pressed(key_attack)) {
         <arguments>
           <argument>
             <kind>1</kind>
-<<<<<<< HEAD
             <string>draw_sprite_ext(spr_player, 0, round(x), round(y), 1, 1, image_angle, c_white, 1);
 draw_sprite_ext(spr_crosshair, 0, round(x) + cos(dir) * 30, round(y) + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1);
-=======
-            <string>draw_sprite_ext(spr_player, 0, x, y, 1, 1, image_angle, c_white, 1);
-draw_sprite_ext(spr_crosshair, 0, x + cos(dir) * 30, y + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1);
 
 var h = 8;
 var w = 32;
@@ -162,7 +158,6 @@ draw_set_color(merge_color(c_red, c_green, hp / max_hp));
 draw_rectangle(sx, sy, sx + floor(w * (hp / max_hp)), sy + h, false);
 draw_set_color(c_white);
 draw_rectangle(sx, sy, sx + w, sy + h, true);
->>>>>>> origin/master
 </string>
           </argument>
         </arguments>
