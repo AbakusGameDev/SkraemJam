@@ -25,24 +25,26 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// Default controls
-key_up = vk_up;
-key_down = vk_down;
-key_right = vk_right;
-key_left = vk_left;
-key_rotate_CW = 190;
-key_rotate_CCW = 188;
-key_attack = vk_space;
+            <string>key_up = 0;
+key_down = 0;
+key_right = 0;
+key_left = 0;
+key_rotate_CW = 0;
+key_rotate_CCW = 0;
+key_attack = 0;
 
 light_intensity = 0;
 
 dir = 0.0;
-color = c_red
+color = c_red;
 
 movement_speed = 2.5
 rotation_speed = 0.1
 
 move_collision_radius = 16;
+
+max_hp = 100;
+hp = max_hp * 0.5;
 </string>
           </argument>
         </arguments>
@@ -65,6 +67,7 @@ move_collision_radius = 16;
         <arguments>
           <argument>
             <kind>1</kind>
+			
             <string>
 var delta_x = (keyboard_check(key_right) - keyboard_check(key_left)) * movement_speed;
 var delta_y = (keyboard_check(key_down) - keyboard_check(key_up)) * movement_speed;
@@ -138,8 +141,28 @@ if(keyboard_check_pressed(key_attack)) {
         <arguments>
           <argument>
             <kind>1</kind>
+<<<<<<< HEAD
             <string>draw_sprite_ext(spr_player, 0, round(x), round(y), 1, 1, image_angle, c_white, 1);
 draw_sprite_ext(spr_crosshair, 0, round(x) + cos(dir) * 30, round(y) + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1);
+=======
+            <string>draw_sprite_ext(spr_player, 0, x, y, 1, 1, image_angle, c_white, 1);
+draw_sprite_ext(spr_crosshair, 0, x + cos(dir) * 30, y + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1);
+
+var h = 8;
+var w = 32;
+var dy = 20;
+var sx = floor(x - floor(w * 0.5));
+var sy = floor(y - dy - h);
+
+draw_set_color(make_color_rgb(90, 90, 90));
+draw_set_alpha(0.75);
+draw_rectangle(sx, sy, sx + w, sy + h, false);
+draw_set_alpha(1.0);
+draw_set_color(merge_color(c_red, c_green, hp / max_hp));
+draw_rectangle(sx, sy, sx + floor(w * (hp / max_hp)), sy + h, false);
+draw_set_color(c_white);
+draw_rectangle(sx, sy, sx + w, sy + h, true);
+>>>>>>> origin/master
 </string>
           </argument>
         </arguments>

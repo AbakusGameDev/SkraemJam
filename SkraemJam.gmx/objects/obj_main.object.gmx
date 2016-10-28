@@ -29,7 +29,11 @@
 
 window_set_fullscreen(true);
 
-player_0 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
+state = 0
+
+start_timer = 0
+
+player_0 = instance_create(room_width * 0.45, room_height * 0.5, obj_player);
 with (player_0) {
     key_up = vk_up;
     key_down = vk_down;
@@ -38,10 +42,11 @@ with (player_0) {
     key_rotate_CW = 190;
     key_rotate_CCW = 188;
     key_attack = vk_control;
-    color = c_red
+    dir = degtorad(0);
+    color = c_red;
 }
 
-player_1 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
+player_1 = instance_create(room_width * 0.55, room_height * 0.5, obj_player);
 with (player_1) {
     key_up = ord('W');
     key_down = ord('S');
@@ -50,7 +55,8 @@ with (player_1) {
     key_rotate_CW = ord('V');
     key_rotate_CCW = ord('C');
     key_attack = vk_space;
-    color = c_blue
+    dir = degtorad(180);
+    color = c_blue;
 }
 
 view_wview = display_get_width();
@@ -100,6 +106,61 @@ view_xview = round((player_0.x + player_1.x) * 0.5 - view_wview * 0.5);
 view_yview = round((player_0.y + player_1.y) * 0.5 - view_hview * 0.5);
 
 if (keyboard_check(vk_escape)) game_end();
+
+if(state == 0) {
+    if(keyboard_check(vk_anykey)) {
+        state = 2;
+        start_timer = 0;
+    }
+}
+else if(state == 2) {
+    if(++start_timer &gt;= room_speed * 3) {
+        state = 1;
+    }   
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_font(font0);
+
+if(state != 1) {
+    draw_set_color(merge_color(c_red, c_black, 0.5));
+    draw_set_alpha((1.0 - (start_timer / (room_speed * 3))) * 0.75);
+    draw_rectangle(0, 0, display_get_width(), display_get_height(), false);
+}
+
+if(state == 0) {
+    var str = "Press &lt;ANY&gt; key to start";
+    draw_set_color(c_white);
+    draw_set_alpha(1.0);
+    draw_text((display_get_width() - string_width(str)) * 0.5, (display_get_height() - string_height(str)) * 0.5 , str);
+}
+else if(state == 2) {
+    var str = string(3 - floor(start_timer / room_speed));
+    draw_set_color(c_white);
+    draw_set_alpha(1.0);
+    draw_text((display_get_width() - string_width(str)) * 0.5, (display_get_height() - string_height(str)) * 0.5 , str);
+}
+
 </string>
           </argument>
         </arguments>
