@@ -38,6 +38,7 @@ with (player_0) {
     key_rotate_CW = 190;
     key_rotate_CCW = 188;
     key_attack = vk_control;
+    color = c_red
 }
 
 player_1 = instance_create(room_width * 0.5, room_height * 0.5, obj_player);
@@ -49,6 +50,7 @@ with (player_1) {
     key_rotate_CW = ord('V');
     key_rotate_CCW = ord('C');
     key_attack = vk_space;
+    color = c_blue
 }
 
 view_wview = display_get_width();

@@ -35,6 +35,7 @@ key_rotate_CCW = 188;
 key_attack = vk_space;
 
 dir = 0.0;
+color = c_red
 
 movement_speed = 5.0
 rotation_speed = 0.1
@@ -92,7 +93,7 @@ if(keyboard_check_pressed(key_attack)) {
           <argument>
             <kind>1</kind>
             <string>draw_sprite(spr_player, 0, x, y);
-draw_circle(x + cos(dir) * 20, y + sin(dir) * 20, 5, false)
+draw_sprite_ext(spr_crosshair, 0, x + cos(dir) * 30, y + sin(dir) * 30, 1, 1, radtodeg(-dir), color, 1)
 </string>
           </argument>
         </arguments>
