@@ -9,7 +9,10 @@
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_clown</sprite>
     <sprite>sprites\spr_clown_mask</sprite>
+    <sprite>sprites\spr_player_mask</sprite>
     <sprite>sprites\spr_spotlight_light</sprite>
+    <sprite>sprites\sprite9</sprite>
+    <sprite>sprites\spr_player_light</sprite>
     <sprite>sprites\spr_spotlight_editor</sprite>
     <sprite>sprites\spr_crosshair</sprite>
     <sprite>sprites\spr_collision_static</sprite>
@@ -21,6 +24,7 @@
   <scripts name="scripts">
     <script>scripts\spotlight_set_goal.gml</script>
     <script>scripts\clown_set_goal.gml</script>
+    <script>scripts\push_other_character.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_main</object>
@@ -31,6 +35,7 @@
     <object>objects\obj_collision_parent</object>
     <object>objects\obj_collision_static</object>
     <object>objects\obj_projectile</object>
+    <object>objects\obj_collision_character</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

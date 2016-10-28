@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_collision_character</parentName>
   <maskName>spr_clown_mask</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -28,14 +28,16 @@
             <string>goal_x = room_width * 0.5;
 goal_y = room_height * 0.5;
 
-direction = point_direction(x, y, room_width * 0.5, room_height * 0.5);
+image_angle = point_direction(x, y, room_width * 0.5, room_height * 0.5);
 
-speed = 2;
+speed = 0;
 
 player_seen = noone;
 player_seen_timer = 0;
 
 stuck_timer = 0;
+
+move_collision_radius = 25;
 </string>
           </argument>
         </arguments>
@@ -71,7 +73,7 @@ with (obj_player) {
 }
 
 if (player_seen || player_seen_timer &gt; 0) {
-    speed = 2;
+    move_speed = 2;
     
     rotation_speed = 1;
     
@@ -85,7 +87,7 @@ if (player_seen || player_seen_timer &gt; 0) {
         clown_set_goal();
     }
 } else {
-    speed = 1;
+    move_speed = 1;
     
     stuck_timer += 1;
     
@@ -101,10 +103,33 @@ if (player_seen || player_seen_timer &gt; 0) {
     rotation_speed = 0.3;
 }
 
-var diff = angle_difference(direction, point_direction(x, y, goal_x, goal_y));
-direction -= diff * 0.1;
+mp_potential_step_object(goal_x, goal_y, move_speed, obj_collision_parent);
 
-image_angle = direction;
+var diff = angle_difference(image_angle, direction);
+image_angle -= diff * 0.1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_collision_character">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>push_other_character();
 </string>
           </argument>
         </arguments>
@@ -129,38 +154,6 @@ image_angle = direction;
             <kind>1</kind>
             <string>x = xprevious;
 y = yprevious;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_clown">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>var d = point_distance(x, y, other.x, other.y);
-var r = d / (32);
-var delta_x = (other.x - x) * (1 - r) * 0.5;
-var delta_y = (other.y - y) * (1 - r) * 0.5;
-
-x -= delta_x;
-y -= delta_y;
-
-other.x += delta_x;
-other.y += delta_y;
 </string>
           </argument>
         </arguments>
