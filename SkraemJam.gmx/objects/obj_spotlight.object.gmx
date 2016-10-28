@@ -25,15 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>color = choose(
-            merge_color(make_color_hsv(0, 100, 128), c_white, 0.5),
-            merge_color(make_color_hsv(60, 100, 128), c_white, 0.5),
-            merge_color(make_color_hsv(120, 100, 128), c_white, 0.5),
-            merge_color(make_color_hsv(180, 100, 128), c_white, 0.5),
-            merge_color(make_color_hsv(240, 100, 128), c_white, 0.5)
-        );
-        
-direction = random(360);
+            <string>direction = random(360);
 
 speed = choose(0.2, 0.5, 1);
 
