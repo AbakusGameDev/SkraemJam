@@ -74,49 +74,50 @@ facing = -1;
           <argument>
             <kind>1</kind>
             <string>if(alive &amp;&amp; obj_main.state == 1) {
-var delta_x = (keyboard_check(key_right) - keyboard_check(key_left)) * movement_speed;
-var delta_y = (keyboard_check(key_down) - keyboard_check(key_up)) * movement_speed;
-
-if (!place_meeting(x + delta_x, y, obj_collision_parent)) {
-    x += delta_x;
-}
-if (!place_meeting(x, y + delta_y, obj_collision_parent)) {
-    y += delta_y;
-}
-
-
-//dir += (keyboard_check(key_rotate_CW) - keyboard_check(key_rotate_CCW)) * rotation_speed
-
-dir -= degtorad(-angle_difference(radtodeg(-dir), radtodeg(-facing))) * 0.1;
-
-if (delta_x &gt; 0) facing = degtorad(-0);
-if (delta_x &lt; 0) facing = degtorad(-180);
-if (delta_y &gt; 0) facing = degtorad(-270);
-if (delta_y &lt; 0) facing = degtorad(-90);
-
-if (delta_x &gt; 0 &amp;&amp; delta_y &gt; 0) {
-    facing = degtorad(-315);
-}
-
-if (delta_x &lt; 0 &amp;&amp; delta_y &lt; 0) {
-    facing = degtorad(-135);
-}
-
-if (delta_x &gt; 0 &amp;&amp; delta_y &lt; 0) {
-    facing = degtorad(-45);
-}
-
-if (delta_x &lt; 0 &amp;&amp; delta_y &gt; 0) {
-    facing = degtorad(-225);
-}
-
-var in_light = false;
-with (obj_spotlight) {
-    if (point_distance(x, y, other.x, other.y) &lt; 480) {
-        in_light = true;
-        break;
+    var delta_x = (keyboard_check(key_right) - keyboard_check(key_left)) * movement_speed;
+    var delta_y = (keyboard_check(key_down) - keyboard_check(key_up)) * movement_speed;
+    
+    if (!place_meeting(x + delta_x, y, obj_collision_parent)) {
+        x += delta_x;
+    }
+    if (!place_meeting(x, y + delta_y, obj_collision_parent)) {
+        y += delta_y;
     }
     
+    
+    //dir += (keyboard_check(key_rotate_CW) - keyboard_check(key_rotate_CCW)) * rotation_speed
+    
+    dir -= degtorad(-angle_difference(radtodeg(-dir), radtodeg(-facing))) * 0.1;
+    
+    if (delta_x &gt; 0) facing = degtorad(-0);
+    if (delta_x &lt; 0) facing = degtorad(-180);
+    if (delta_y &gt; 0) facing = degtorad(-270);
+    if (delta_y &lt; 0) facing = degtorad(-90);
+    
+    if (delta_x &gt; 0 &amp;&amp; delta_y &gt; 0) {
+        facing = degtorad(-315);
+    }
+    
+    if (delta_x &lt; 0 &amp;&amp; delta_y &lt; 0) {
+        facing = degtorad(-135);
+    }
+    
+    if (delta_x &gt; 0 &amp;&amp; delta_y &lt; 0) {
+        facing = degtorad(-45);
+    }
+    
+    if (delta_x &lt; 0 &amp;&amp; delta_y &gt; 0) {
+        facing = degtorad(-225);
+    }
+    
+    var in_light = false;
+    with (obj_spotlight) {
+        if (point_distance(x, y, other.x, other.y) &lt; 480) {
+            in_light = true;
+            break;
+        }
+    }
+        
     if (!in_light) light_intensity += 0.02; else light_intensity -= 0.04;
     light_intensity = clamp(light_intensity, 0, 1);
     
