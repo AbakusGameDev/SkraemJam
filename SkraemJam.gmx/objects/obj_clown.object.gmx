@@ -70,7 +70,7 @@ image_index = irandom(image_number - 1);
             <string>var minimum = 1000000;
 
 with (obj_player) {
-    if (!collision_line(other.x, other.y, x, y, obj_collision_parent, true, false)) {
+    if (!collision_line(other.x, other.y, x, y, obj_collision_parent, true, false) &amp;&amp; alive) {
         if (point_distance(other.x, other.y, x, y) &lt; minimum) {
             minimum = point_distance(other.x, other.y, x, y);
             other.player_seen = id;
