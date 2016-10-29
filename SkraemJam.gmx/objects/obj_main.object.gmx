@@ -32,6 +32,13 @@ window_set_fullscreen(true);
 state = 0
 state_timer = 0
 
+ammo_timer = 0
+
+wave_current = 0
+wave_enemy_count = 0
+
+available_ammo_spawns = ds_list_create();
+
 player_0 = instance_create(0, 0, obj_player);
 with (player_0) {
     key_up = vk_up;
@@ -128,10 +135,44 @@ else if(state == 1) {
         state = 4;
         state_timer = 0
     }
+    else if(instance_number(obj_clown) == 0 &amp;&amp; wave_enemy_count &lt;= 0) {
+        state = 2;
+        state_timer = 0;
+    }
+    else {
+        // Spawn ammo periodically
+        if (ammo_timer-- &lt;= 0) {
+            // Spawn ammo
+            var ammo_to_spawn = 2;
+            for(var j = 0; j &lt; ammo_to_spawn; j++) {
+                var best_spawner_index = -1;
+                var max_dist = 0;
+                for(var i = 0; i &lt; ds_list_size(available_ammo_spawns); i++) {
+                    var ammo_spawn = ds_list_find_value(available_ammo_spawns, i);
+                    var dist = point_distance(player_0.x, player_0.y, ammo_spawn.x, ammo_spawn.y) + point_distance(player_1.x, player_1.y, ammo_spawn.x, ammo_spawn.y);
+                    if(dist &gt; max_dist) {
+                        best_spawner_index = i;
+                    }
+                }
+                
+                if(best_spawner_index &gt;= 0) {
+                    var ammo_spawn = ds_list_find_value(available_ammo_spawns, best_spawner_index);
+                    var pickup = instance_create(ammo_spawn.x, ammo_spawn.y, obj_ammo_pickup);
+                    pickup.spawner = ammo_spawn;
+                    ds_list_delete(available_ammo_spawns, best_spawner_index);
+                }
+            }
+            ammo_timer = room_speed * (3.0 + random(5.0))
+        }
+    }
 }
 else if(state == 2) {
     if(++state_timer &gt;= room_speed * 3) {
         state = 1;
+        
+        // Setup next wave
+        wave_current++;
+        wave_enemy_count = wave_current * 5;
     }   
 }
 else if(state == 4) {
@@ -148,9 +189,19 @@ else if(state == -4) {
 }
 
 if(init_game) {
-    var spawn_index = 0;
+    wave_current = 0;
+
     with(obj_clown) {
         instance_destroy();
+    }
+    
+    with(obj_ammo_pickup) {
+        instance_destroy();
+    }
+    
+    ds_list_clear(obj_main.available_ammo_spawns);
+    with (obj_ammo_spawn) {
+        ds_list_add(obj_main.available_ammo_spawns, id);
     }
     
     with(obj_spotlight) {
@@ -158,6 +209,7 @@ if(init_game) {
         y = ystart;
     }
     
+    var spawn_index = 0;    
     with(obj_player) {
         alive = true;
         hp = max_hp;
@@ -195,7 +247,7 @@ if(init_game) {
             <kind>1</kind>
             <string>draw_set_font(font0);
 
-if(state == 0) {
+if(state == 0) { // Starting screen
     draw_set_color(merge_color(c_red, c_black, 0.5));
     draw_set_alpha(0.75);
     draw_rectangle(0, 0, display_get_width(), display_get_height(), false);
@@ -207,7 +259,14 @@ if(state == 0) {
     draw_set_valign(fa_middle);
     draw_text(display_get_width() * 0.5, display_get_height() * 0.5 , str);
 }
-else if(state == 2) {
+else if(state == 1) { // Wawe in progress
+    draw_set_color(c_white);
+    draw_set_alpha(1.0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_text_transformed(20, 0, "Wave: " + string(wave_current) + "#Enemies left: " + string(wave_enemy_count + instance_number(obj_clown)) + "#"+string(instance_number(obj_ammo_pickup)), 0.5, 0.5, 0.0);   
+}
+else if(state == 2) { // Countdown
     draw_set_color(merge_color(c_red, c_black, 0.5));
     draw_set_alpha((1.0 - (state_timer / (room_speed * 3))) * 0.75);
     draw_rectangle(0, 0, display_get_width(), display_get_height(), false);
@@ -218,8 +277,13 @@ else if(state == 2) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_text(display_get_width() * 0.5, display_get_height() * 0.5 , str);
+    
+    draw_set_alpha(1.0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_text_transformed(20, 0, "Wave incomming...", 0.5, 0.5, 0.0);   
 }
-else if(abs(state) == 4) {
+else if(abs(state) == 4) { // Game over
     draw_set_color(merge_color(c_red, c_black, 0.5));
     draw_set_alpha((state_timer / (room_speed * 2)) * 0.75);
     draw_rectangle(0, 0, display_get_width(), display_get_height(), false);

@@ -39,6 +39,8 @@
     <object>objects\obj_collision_static</object>
     <object>objects\obj_projectile</object>
     <object>objects\obj_collision_character</object>
+    <object>objects\obj_ammo_pickup</object>
+    <object>objects\obj_ammo_spawn</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>
