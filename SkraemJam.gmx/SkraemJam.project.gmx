@@ -10,7 +10,6 @@
     <sound>sound\snd_clown_laught</sound>
     <sound>sound\snd_knife_hit</sound>
     <sound>sound\snd_knife_hit_2</sound>
-    <sound>sound\sound5_sirkussang</sound>
     <sound>sound\mus_sirkussang</sound>
   </sounds>
   <sprites name="sprites">
