@@ -83,6 +83,8 @@ view_hview = display_get_height();
 sf_light = -1;
 
 random_set_seed(1000);
+
+audio_play_sound(mus_sirkussang, 0, true);
 </string>
           </argument>
         </arguments>
@@ -142,6 +144,14 @@ else if(state == 1) {
     else if(instance_number(obj_clown) == 0 &amp;&amp; wave_enemy_count &lt;= 0) {
         state = 2;
         state_timer = 0;
+        
+        // Respawn players
+        with(obj_player) {
+            if(!alive) {
+                alive = true;
+                hp = max_hp;
+            }
+        }
     }
     else {
         // Spawn ammo periodically
@@ -177,7 +187,10 @@ else if(state == 2) {
         // Setup next wave
         wave_current++;
         wave_enemy_count = wave_current * 5;
-    }   
+    }
+    if(!audio_is_playing(snd_laughting_and_creaking)) {
+        audio_play_sound(snd_laughting_and_creaking, 0, false);
+    }
 }
 else if(state == 4) {
     if(++state_timer &gt;= room_speed * 2) {
@@ -294,7 +307,7 @@ else if(state == 1) { // Wawe in progress
     draw_set_alpha(1.0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
-    draw_text_transformed(20, 0, "Wave: " + string(wave_current) + "#Enemies left: " + string(wave_enemy_count + instance_number(obj_clown)) + "#"+string(instance_number(obj_ammo_pickup)), 0.5, 0.5, 0.0);   
+    draw_text_transformed(20, 0, "Wave: " + string(wave_current) + "#Enemies left: " + string(wave_enemy_count + instance_number(obj_clown)), 0.5, 0.5, 0.0);   
 }
 else if(state == 2) { // Countdown
     draw_set_color(merge_color(c_red, c_black, 0.8));
@@ -311,7 +324,7 @@ else if(state == 2) { // Countdown
     draw_set_alpha(1.0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
-    draw_text_transformed(20, 0, "Wave incomming...", 0.5, 0.5, 0.0);   
+    draw_text_transformed(20, 0, "Wave incoming...", 0.5, 0.5, 0.0);   
 }
 else if(abs(state) == 4) { // Game over
     draw_set_color(merge_color(c_red, c_black, 0.8));

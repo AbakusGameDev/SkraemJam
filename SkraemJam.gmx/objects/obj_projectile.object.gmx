@@ -63,10 +63,14 @@ if (instance) {
         image_angle = other.image_angle + 180;
     }
     repeat (10) add_blood(instance.x + irandom_range(-60, 60), instance.y + irandom_range(-60, 60), 0);
+    audio_play_sound(snd_knife_hit, 0, false);
     instance_destroy();
 }
 
-if (place_meeting(x, y, obj_collision_static)) instance_destroy();
+if (place_meeting(x, y, obj_collision_static)) {
+    audio_play_sound(snd_knife_hit_2, 0, false);
+    instance_destroy();
+}
 </string>
           </argument>
         </arguments>

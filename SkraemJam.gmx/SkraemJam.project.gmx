@@ -4,7 +4,15 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_knife_throw</sound>
+    <sound>sound\snd_laughting_and_creaking</sound>
+    <sound>sound\snd_clown_laught</sound>
+    <sound>sound\snd_knife_hit</sound>
+    <sound>sound\snd_knife_hit_2</sound>
+    <sound>sound\sound5_sirkussang</sound>
+    <sound>sound\mus_sirkussang</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_clown</sprite>
@@ -39,6 +47,7 @@
   </scripts>
   <fonts name="fonts">
     <font>fonts\font0</font>
+    <font>fonts\font1</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_main</object>

@@ -49,6 +49,9 @@ image_speed = 0;
 image_index = irandom(image_number - 1);
 
 dying = false;
+
+sound_timer = floor(random(3.0) * room_speed);
+sound_was_playing = false;
 </string>
           </argument>
         </arguments>
@@ -157,6 +160,18 @@ dying = false;
         
     var diff = angle_difference(image_angle, direction);
     image_angle -= diff * 0.1;
+    
+    if(!audio_is_playing(snd_clown_laught)) {
+        if(sound_was_playing) {
+            sound_timer = floor(random(3.0) * room_speed);
+        }
+        else {
+            if(sound_timer-- &lt;= 0) {
+                audio_play_sound(snd_clown_laught, 0, false);
+            }
+        }
+    }
+    sound_was_playing = audio_is_playing(snd_clown_laught)
 }
 </string>
           </argument>
