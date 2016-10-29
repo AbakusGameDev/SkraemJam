@@ -15,9 +15,16 @@
     <sprite>sprites\spr_spotlight_editor</sprite>
     <sprite>sprites\spr_crosshair</sprite>
     <sprite>sprites\spr_collision_static</sprite>
+    <sprite>sprites\spr_projectile</sprite>
+    <sprite>sprites\spr_blood</sprite>
+    <sprite>sprites\spr_blood_splash</sprite>
+    <sprite>sprites\spr_bodypart</sprite>
+    <sprite>sprites\spr_explosion</sprite>
+    <sprite>sprites\spr_confetti</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_0</background>
+    <background>background\bg_2</background>
     <background>background\bg_1</background>
   </backgrounds>
   <paths name="paths"/>
@@ -25,6 +32,8 @@
     <script>scripts\spotlight_set_goal.gml</script>
     <script>scripts\clown_set_goal.gml</script>
     <script>scripts\push_other_character.gml</script>
+    <script>scripts\screenshake.gml</script>
+    <script>scripts\add_blood.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\font0</font>
@@ -41,6 +50,11 @@
     <object>objects\obj_collision_character</object>
     <object>objects\obj_ammo_pickup</object>
     <object>objects\obj_ammo_spawn</object>
+    <object>objects\obj_background_2</object>
+    <object>objects\obj_blood</object>
+    <object>objects\obj_blood_splash</object>
+    <object>objects\obj_explosion</object>
+    <object>objects\obj_confetti</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

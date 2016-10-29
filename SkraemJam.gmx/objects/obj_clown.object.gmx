@@ -37,6 +37,8 @@ player_seen_timer = 0;
 
 stuck_timer = 0;
 
+dying_timer = 0;
+
 move_speed = 1;
 
 move_collision_radius = 25;
@@ -45,6 +47,8 @@ out_of_spawn_collision = false;
 
 image_speed = 0;
 image_index = irandom(image_number - 1);
+
+dying = false;
 </string>
           </argument>
         </arguments>
@@ -67,62 +71,77 @@ image_index = irandom(image_number - 1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var minimum = 1000000;
-
-with (obj_player) {
-    if (!collision_line(other.x, other.y, x, y, obj_collision_parent, true, false) &amp;&amp; alive) {
-        if (point_distance(other.x, other.y, x, y) &lt; minimum) {
-            minimum = point_distance(other.x, other.y, x, y);
-            other.player_seen = id;
-            other.player_seen_timer = room_speed * random_range(4, 5);
+            <string>if (dying) {
+    speed = 0;
+    repeat (40) add_blood(x + random_range(-100, 100), y + random_range(-100, 100), 0);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 1);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 2);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 3);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 4);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 3);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 4);
+    add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 5);
+    instance_create(x, y, obj_explosion);
+    screenshake();
+    instance_destroy();
+} else {
+    var minimum = 1000000;
+    
+    with (obj_player) {
+        if (!collision_line(other.x, other.y, x, y, obj_collision_parent, true, false) &amp;&amp; alive) {
+            if (point_distance(other.x, other.y, x, y) &lt; minimum) {
+                minimum = point_distance(other.x, other.y, x, y);
+                other.player_seen = id;
+                other.player_seen_timer = room_speed * random_range(4, 5);
+            }
         }
     }
-}
-
-if (player_seen || player_seen_timer &gt; 0) {
-    move_speed = 2;
     
-    rotation_speed = 1;
-    
-    goal_x = player_seen.x;
-    goal_y = player_seen.y;
-    
-    player_seen_timer -= 1;
-    
-    if (player_seen_timer &lt;= 0) {
-        player_seen = noone;
-        clown_set_goal();
+    if (player_seen || player_seen_timer &gt; 0) {
+        move_speed = 2;
+        
+        rotation_speed = 1;
+        
+        goal_x = player_seen.x;
+        goal_y = player_seen.y;
+        
+        player_seen_timer -= 1;
+        
+        if (player_seen_timer &lt;= 0) {
+            player_seen = noone;
+            clown_set_goal();
+        }
+    } else {
+        move_speed = 1;
+        
+        stuck_timer += 1;
+        
+        if (stuck_timer &gt; room_speed * 4) {
+            clown_set_goal();
+            stuck_timer = 0;
+        }
+        
+        if (point_distance(x, y, goal_x, goal_y) &lt; 200) {
+            clown_set_goal();
+        }
+        
+        rotation_speed = 0.3;
     }
-} else {
-    move_speed = 1;
     
-    stuck_timer += 1;
     
-    if (stuck_timer &gt; room_speed * 4) {
-        clown_set_goal();
-        stuck_timer = 0;
+    
+    if (out_of_spawn_collision) {
+        mp_potential_step_object(goal_x, goal_y, move_speed, obj_collision_parent);
+        speed = 0;
+    } else {
+        speed = 1;
+        direction = point_direction(x, y, room_width * 0.5, room_height * 0.5);
+        if (!place_meeting(x, y, obj_collision_parent)) out_of_spawn_collision = true;
     }
-    
-    if (point_distance(x, y, goal_x, goal_y) &lt; 200) {
-        clown_set_goal();
-    }
-    
-    rotation_speed = 0.3;
+        
+    var diff = angle_difference(image_angle, direction);
+    image_angle -= diff * 0.1;
 }
-
-
-
-if (out_of_spawn_collision) {
-    mp_potential_step_object(goal_x, goal_y, move_speed, obj_collision_parent);
-    speed = 0;
-} else {
-    speed = 1;
-    direction = point_direction(x, y, room_width * 0.5, room_height * 0.5);
-    if (!place_meeting(x, y, obj_collision_parent)) out_of_spawn_collision = true;
-}
-    
-var diff = angle_difference(image_angle, direction);
-image_angle -= diff * 0.1;
 </string>
           </argument>
         </arguments>
@@ -168,7 +187,11 @@ image_angle -= diff * 0.1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_self();
+            <string>if (dying) {
+    
+}
+
+draw_sprite_ext(sprite_index, image_index, x + irandom_range(-dying * 5, dying * 5), y + irandom_range(-dying * 5, dying * 5), 1, 1, image_angle, c_white, 1);
 </string>
           </argument>
         </arguments>
