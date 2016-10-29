@@ -227,6 +227,10 @@ if(init_game) {
         
         spawn_index++;
     }
+    
+    instance_activate_all();
+    with (obj_blood) instance_destroy();
+    if (surface_exists(sf_blood)) surface_free(sf_blood);
 }
 
 if (screenshake_timer &gt; 0) {
