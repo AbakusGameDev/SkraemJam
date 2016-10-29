@@ -8,6 +8,7 @@
   <sprites name="sprites">
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_clown</sprite>
+    <sprite>sprites\spr_clown_projectile</sprite>
     <sprite>sprites\spr_clown_mask</sprite>
     <sprite>sprites\spr_player_mask</sprite>
     <sprite>sprites\spr_spotlight_light</sprite>
@@ -21,6 +22,7 @@
     <sprite>sprites\spr_bodypart</sprite>
     <sprite>sprites\spr_explosion</sprite>
     <sprite>sprites\spr_confetti</sprite>
+    <sprite>sprites\spr_pickup</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_0</background>
@@ -47,6 +49,7 @@
     <object>objects\obj_collision_parent</object>
     <object>objects\obj_collision_static</object>
     <object>objects\obj_projectile</object>
+    <object>objects\obj_clown_projectile</object>
     <object>objects\obj_collision_character</object>
     <object>objects\obj_ammo_pickup</object>
     <object>objects\obj_ammo_spawn</object>

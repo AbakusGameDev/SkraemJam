@@ -13,10 +13,12 @@ with (instance) {
     }
 }
 
+if (surface_exists(obj_main.sf_blood)) {
 surface_set_target(obj_main.sf_blood);
     with (instance) {
         event_perform(ev_draw, 0);
     }
 surface_reset_target();
+}
 
 instance_deactivate_object(instance);

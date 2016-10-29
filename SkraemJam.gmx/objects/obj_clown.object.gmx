@@ -82,7 +82,23 @@ dying = false;
     add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 4);
     add_blood(x + random_range(-150, 150), y + random_range(-60, 60), 5);
     instance_create(x, y, obj_explosion);
+    repeat (50) instance_create(x, y, obj_confetti);
     screenshake();
+    with (instance_create(x, y, obj_clown_projectile)) {
+        dir = random(2 * pi);
+        image_angle = radtodeg(-dir);
+        image_index = 0;
+    }
+    with (instance_create(x, y, obj_clown_projectile)) {
+        dir = random(2 * pi);
+        image_angle = radtodeg(-dir);
+        image_index = 1;
+    }
+    with (instance_create(x, y, obj_clown_projectile)) {
+        dir = random(2 * pi);
+        image_angle = radtodeg(-dir);
+        image_index = 2;
+    }
     instance_destroy();
 } else {
     var minimum = 1000000;
