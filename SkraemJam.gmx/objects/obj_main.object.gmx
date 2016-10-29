@@ -161,6 +161,7 @@ if(init_game) {
     with(obj_player) {
         alive = true;
         hp = max_hp;
+        light_intensity = 0;
         
         var ang = (spawn_index / instance_number(obj_player)) * 360;
         dir = degtorad(ang + 180);
