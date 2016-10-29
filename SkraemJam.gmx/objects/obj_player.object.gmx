@@ -67,13 +67,14 @@ hp = max_hp * 0.5;
         <arguments>
           <argument>
             <kind>1</kind>
-			
             <string>
 var delta_x = (keyboard_check(key_right) - keyboard_check(key_left)) * movement_speed;
 var delta_y = (keyboard_check(key_down) - keyboard_check(key_up)) * movement_speed;
 
-if (!place_meeting(x + delta_x, y + delta_y, obj_collision_parent)) {
+if (!place_meeting(x + delta_x, y, obj_collision_parent)) {
     x += delta_x;
+}
+if (!place_meeting(x, y + delta_y, obj_collision_parent)) {
     y += delta_y;
 }
 
@@ -82,7 +83,7 @@ dir += (keyboard_check(key_rotate_CW) - keyboard_check(key_rotate_CCW)) * rotati
 
 var in_light = false;
 with (obj_spotlight) {
-    if (point_distance(x, y, other.x, other.y) &lt; 350) {
+    if (point_distance(x, y, other.x, other.y) &lt; 512) {
         in_light = true;
         break;
     }

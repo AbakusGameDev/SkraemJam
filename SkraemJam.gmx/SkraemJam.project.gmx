@@ -11,7 +11,6 @@
     <sprite>sprites\spr_clown_mask</sprite>
     <sprite>sprites\spr_player_mask</sprite>
     <sprite>sprites\spr_spotlight_light</sprite>
-    <sprite>sprites\sprite9</sprite>
     <sprite>sprites\spr_player_light</sprite>
     <sprite>sprites\spr_spotlight_editor</sprite>
     <sprite>sprites\spr_crosshair</sprite>
@@ -19,6 +18,7 @@
   </sprites>
   <backgrounds name="background">
     <background>background\bg_0</background>
+    <background>background\bg_1</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
